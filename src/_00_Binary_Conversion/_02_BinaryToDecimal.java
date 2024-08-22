@@ -2,6 +2,8 @@ package _00_Binary_Conversion;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.HashMap;
+
 import org.junit.jupiter.api.Test;
 
 /*
@@ -30,7 +32,11 @@ import org.junit.jupiter.api.Test;
  */
 public class _02_BinaryToDecimal {
     int convertBinaryStringToDecimalInt(String binStr) {
-        return -1;
+    	HashMap<Integer, Integer> h = new HashMap<Integer, Integer>();
+    	for (int i = 0; i < binStr.length(); i++) {
+    		h.put(Integer.parseInt(binStr.charAt(i)+""), null);
+    	}
+        return 0;
     }
 
     @Test
