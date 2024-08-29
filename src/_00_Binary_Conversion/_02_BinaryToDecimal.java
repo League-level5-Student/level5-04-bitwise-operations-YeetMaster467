@@ -3,6 +3,7 @@ package _00_Binary_Conversion;
 import static org.junit.Assert.assertEquals;
 
 import java.util.HashMap;
+import java.util.Scanner;
 
 import org.junit.jupiter.api.Test;
 
@@ -31,12 +32,29 @@ import org.junit.jupiter.api.Test;
  *   010110 in binary is equal to 22 in decimal!
  */
 public class _02_BinaryToDecimal {
-    int convertBinaryStringToDecimalInt(String binStr) {
-    	HashMap<Integer, Integer> h = new HashMap<Integer, Integer>();
+    int convertBinaryStringToDecimalInt(String b) {
+    	String binStr = new StringBuilder(b).reverse().toString();
+    	int[] arr = new int[binStr.length()];
+    	int num = 0;
+    	int total = 0;
     	for (int i = 0; i < binStr.length(); i++) {
-    		h.put(Integer.parseInt(binStr.charAt(i)+""), null);
+    		if (i == 0) {
+    			if (Integer.parseInt(binStr.charAt(i)+"") == 1) {
+    				arr[i] = 1;
+    			}
+    			num = 1;
+    		} else {
+    			if (Integer.parseInt(binStr.charAt(i)+"") == 1) {
+    				arr[i] = num*2;
+    			}
+    			num = num*2;
+    		}
     	}
-        return 0;
+    	for (int i = 0; i < arr.length; i++) {
+    		System.out.print(arr[i] + " ");
+    		total += arr[i];
+    	}
+        return total;
     }
 
     @Test
@@ -52,5 +70,6 @@ public class _02_BinaryToDecimal {
         binStr = "10100101";
         expected = 165;
         assertEquals(expected, convertBinaryStringToDecimalInt(binStr));
+        
     }
 }
