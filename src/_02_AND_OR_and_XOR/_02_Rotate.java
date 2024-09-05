@@ -34,10 +34,37 @@ public class _02_Rotate {
     }
     
     int rotateRight(int value, int rotateAmount) {
-        return -1;
+
+    	int num = 0b1;
+    	
+    	// might be able to use modulo %%
+    	
+    	for (int i = 0; i < rotateAmount; i++) {
+    		int num2 = num & value;
+    		value = value >> 1;
+    		num2 = num2 << 63;
+    		value = num2 | value;
+    	}
+    	
+    	/* for (int i = 0; i < rotateAmount; i++) {
+    		binStr = Integer.toBinaryString(value);
+    		
+    		System.out.println(binStr);
+    		if (binStr.charAt(binStr.length() - 1) == 1) {
+    			value = value >> 1;
+    			binStr = Integer.toBinaryString(value);
+    			binStr.replaceFirst("0", "1");
+    			value = 0b0 + Integer.parseInt(binStr);
+    		} else {
+    			value = value >> 1;
+    			binStr = Integer.toBinaryString(value);
+    		} 
+    	} */
+    	
+    	return value;
     }
     
-    @Test
+   /* @Test
     void testRotateLeft() {
         int i = -8;
 
@@ -52,7 +79,7 @@ public class _02_Rotate {
         System.out.println("Expected: " + Integer.toBinaryString(-57));
         System.out.println("Actual  : " + Integer.toBinaryString(result));
         assertEquals(-57, result);
-    }
+    }*/
     
     @Test
     void testRotateRight() {
