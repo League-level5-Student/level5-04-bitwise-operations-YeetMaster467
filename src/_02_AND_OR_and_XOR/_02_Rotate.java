@@ -30,7 +30,21 @@ public class _02_Rotate {
     
     int rotateLeft(int value, int rotateAmount) {
     	
-        return -1;
+    	System.out.println("Running Rotate Left");
+    	
+    	int num = 0b1;
+    	
+    	
+    	for (int i = 0; i < rotateAmount; i++) {
+    		System.out.println(Integer.toBinaryString(value));
+    		int num2 = value >> 63;
+    		num2 = num2 & num;
+    		value = value << 1;
+    		value = num2 | value;
+    		System.out.println(Integer.toBinaryString(num2));
+    	}
+    	
+        return value;
     }
     
     int rotateRight(int value, int rotateAmount) {
@@ -40,10 +54,16 @@ public class _02_Rotate {
     	// might be able to use modulo %%
     	
     	for (int i = 0; i < rotateAmount; i++) {
+    		//System.out.println(Integer.toBinaryString(value));
     		int num2 = num & value;
     		value = value >> 1;
     		num2 = num2 << 63;
+    		//System.out.println(Integer.toBinaryString(num2));
+    		int num3 = ~(num << 63);
+    		value = num3 & value;
+    		//System.out.println(Integer.toBinaryString(num3));
     		value = num2 | value;
+    		
     	}
     	
     	/* for (int i = 0; i < rotateAmount; i++) {
@@ -64,7 +84,7 @@ public class _02_Rotate {
     	return value;
     }
     
-   /* @Test
+   @Test
     void testRotateLeft() {
         int i = -8;
 
@@ -79,7 +99,7 @@ public class _02_Rotate {
         System.out.println("Expected: " + Integer.toBinaryString(-57));
         System.out.println("Actual  : " + Integer.toBinaryString(result));
         assertEquals(-57, result);
-    }*/
+    }
     
     @Test
     void testRotateRight() {
