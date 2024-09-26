@@ -21,6 +21,7 @@ public class _01_BinaryPrinter {
         //Use this method to print the remaining 7 bits of b
     	//String binStr = decimalToBinary(b);
     	
+    	/*
     	for (int i = 0; i < 8; i++) {
     		//System.out.println(binStr.charAt(binStr.length() - 1));
         	byte b2 = (byte) (b >> 7 - i);
@@ -28,6 +29,15 @@ public class _01_BinaryPrinter {
         	//binStr = decimalToBinary(b);
         	System.out.print(b2);
     	}
+    	*/
+    	System.out.print((b & 0b10000000) >> 7);
+    	System.out.print((b & 0b01000000) >> 6);
+    	System.out.print((b & 0b00100000) >> 5);
+    	System.out.print((b & 0b00010000) >> 4);
+    	System.out.print((b & 0b00001000) >> 3);
+    	System.out.print((b & 0b00000100) >> 2);
+    	System.out.print((b & 0b00000010) >> 1);
+    	System.out.print((b & 0b00000001) >> 0);
     }
 
     public static void printShortBinary(short s) {
@@ -40,18 +50,12 @@ public class _01_BinaryPrinter {
         // Call printByteBinary twice using the two bytes
         // Make sure they are in the correct order
     	
-    	String binStr = decimalToBinary(s);
-    	
-    	byte b1 = (byte) (0b0 + Byte.parseByte((String) binStr.subSequence(0, 3)));
-    	byte b2 = (byte) (0b0 + Byte.parseByte((String) binStr.subSequence(4, 7)));
-    	
-    	printByteBinary(b1);
+    	printByteBinary((byte) ((s & 0xff00) >> 8));
     	System.out.print(" ");
-    	printByteBinary(b2);
-    	
+    	printByteBinary((byte) ((s & 0x00ff) >> 0));
     }
 
-    public void printIntBinary(int i) {
+    public static void printIntBinary(int i) {
         // Create 2 short variables
 
         // Use bit shifting and masking (&) to save the first
@@ -60,37 +64,30 @@ public class _01_BinaryPrinter {
 
         // Call printShortBinary twice using the two short variables
         // Make sure they are in the correct order
+    	printShortBinary((short) ((i & 0xffff0000) >> 16));
+    	System.out.print(" ");
+    	printShortBinary((short) ((i & 0x0000ffff) >> 0));
     }
 
-    public void printLongBinary(long l) {
+    public static void printLongBinary(long l) {
         // Use the same method as before to complete this method
+    	printIntBinary((int) (l >> 32));
+    	System.out.print(" ");
+    	printIntBinary((int) l);
     }
 
     public static void main(String[] args) {
        // printByteBinary((byte) 100);
        // System.out.println();
        // printByteBinary((byte) -69);
-    	printShortBinary((short) 164);
+    	//printShortBinary((short) 164);
+    	//System.out.println(" ");
+    	//printShortBinary((short) 12000);
+    	//printIntBinary(361134);
+    	//System.out.println(" ");
+    	//printIntBinary(-31);
+    	printLongBinary(512830630128L);
     }
     
-    public static String decimalToBinary(int decimalNum) {
-    	String binaryStr = "";
-    	
-    	do {
-    		
-    		int quotient = decimalNum >>> 1;
-    		
-    		if (decimalNum % 2 != 0) {
-    			binaryStr = '1' + binaryStr;
-    		} else {
-    			binaryStr = '0' + binaryStr;
-    		}
-    		
-    		decimalNum = quotient;
-    		
-    	} while(decimalNum != 0);
-    	
-    	return binaryStr;
-    }
     
 }
