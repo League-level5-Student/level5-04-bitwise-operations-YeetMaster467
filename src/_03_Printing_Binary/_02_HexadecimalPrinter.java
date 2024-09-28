@@ -52,13 +52,107 @@ public class _02_HexadecimalPrinter implements ActionListener {
      * You don't have to handle negative numbers unless you want the challenge!
      */
     String binaryToHex(String binaryStr) {
-    	// split binaryStr into groups of 4
-        return "-";
+    	StringBuilder s = new StringBuilder();
+    	String hex = "";
+    	
+    	for (int i = s.length() - 1; i >= 0; i--) {
+    		s.append(binaryStr.charAt(i));
+    		System.out.println(s);
+    		if (i % 4 == 0 && i != 0) {
+    			int num = binaryToDec(s.toString());
+    			System.out.println(num);
+    			if (num < 10) {
+    				hex += num;
+    			} else {
+    				switch (num) {
+    				case 15:
+    					hex += "F";
+    					break;
+        			case 14:
+        				hex += "E";
+        				break;
+        			case 13:
+        				hex += "D";
+        				break;
+        			case 12:
+        				hex += "C";
+        				break;
+        			case 11:
+        				hex += "B";
+        				break;
+        			case 10:
+        				hex += "A";
+        				break;
+        			}
+    			}
+    			System.out.println(hex);
+    			s = new StringBuilder();
+    		}
+    	}
+    	
+    	
+    	
+    	return hex;
+    	/* int num = binaryToDec(binaryStr);
+    	String hex = "";
+    	while (num != 0) {
+    		if (num >= 15) {
+    			num -= 15;
+    			hex += "F";
+    		} else {
+    			switch (num) {
+    			case 14:
+    				num -= 14;
+    				hex += "E";
+    				break;
+    			case 13:
+    				num -= 13;
+    				hex += "D";
+    				break;
+    			case 12:
+    				num -= 12;
+    				hex += "C";
+    				break;
+    			case 11:
+    				num -= 11;
+    				hex += "B";
+    				break;
+    			case 10:
+    				num -= 10;
+    				hex += "A";
+    				break;
+    			default:
+    				hex += num;
+    				num -= num;
+    			}
+    		}
+    	}
+    	*/
     }
     
-    String binaryToDec(String binaryStr) {
+    int binaryToDec(String binaryStr) {
+    	String binStr = new StringBuilder(binaryStr).reverse().toString();
+    	int arr[] = new int[binStr.length()];
+    	int num = 0;
+    	int total = 0;
+    	for (int i = 0; i < binStr.length(); i++) {
+    		if (i == 0) {
+    			if (Integer.parseInt(binStr.charAt(i)+"") == 1) {
+    				arr[i] = 1;
+    			}
+    			num = 1;
+    		} else {
+    			if (Integer.parseInt(binStr.charAt(i)+"") == 1) {
+    				arr[i] = num*2;
+    			}
+    			num = num*2;
+    		}
+    	}
+    	for (int i = 0; i < arr.length; i++) {
+    		total += arr[i];
+    	}
     	
-        return "-";
+        return total;
     }
 
     /*
@@ -68,8 +162,8 @@ public class _02_HexadecimalPrinter implements ActionListener {
         if (binaryStr.length() != 8) {
             return "-";
         }
-
-        return "-";
+        char c = (char) binaryToDec(binaryStr);
+        return c + "";
     }
     
     public static void main(String[] args) {
@@ -136,11 +230,11 @@ public class _02_HexadecimalPrinter implements ActionListener {
             String binaryStr = inputTextField.getText();
             
             String asciiStr = binaryToAscii(binaryStr);
-            String decimalStr = binaryToDec(binaryStr);
+            int decimalStr = binaryToDec(binaryStr);
             String hexStr = binaryToHex(binaryStr);
             
             asciiResult.setText(asciiStr);
-            decimalResult.setText(decimalStr);
+            decimalResult.setText(decimalStr+"");
             hexResult.setText(hexStr);
         }
     }
