@@ -116,7 +116,7 @@ public class LightSwitches implements GameControlScene {
      * lightsBitmap = 0b10000001  // lights 0, 7 off
      */
     void turnMultiLightsOff(int lightsBitmap) {
-        lightsOnOff = lightsBitmap ^ ~lightsOnOff;
+        lightsOnOff = ~lightsBitmap & lightsOnOff;
     }
     
     /*
